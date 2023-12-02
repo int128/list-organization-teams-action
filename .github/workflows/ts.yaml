@@ -35,6 +35,9 @@ jobs:
 
       - name: e2e-test
         uses: ./
+        with:
+          organization: int128
+          usernames: ${{ github.actor }}
 
   generate:
     runs-on: ubuntu-latest

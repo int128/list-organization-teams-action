@@ -1,32 +1,32 @@
-import { getAssociatedPullRequest } from '../src/queries/getAssociatedPullRequest'
+import { listOrganizationTeams } from '../src/queries/listOrganizationTeams'
 import { run } from '../src/run'
 
-jest.mock('../src/queries/getAssociatedPullRequest')
+jest.mock('../src/queries/listOrganizationTeams')
 
 describe('run', () => {
   it('should show the associated pull request', async () => {
-    jest.mocked(getAssociatedPullRequest).mockResolvedValueOnce({
-      repository: {
-        object: {
-          __typename: 'Commit',
-          associatedPullRequests: {
-            nodes: [
-              {
-                number: 1,
-              },
-            ],
-          },
+    jest.mocked(listOrganizationTeams).mockResolvedValueOnce({
+      organization: {
+        teams: {
+          totalCount: 1,
+          nodes: [
+            {
+              name: 'sre',
+            },
+          ],
         },
       },
     })
 
-    await expect(
-      run({
-        owner: 'octocat',
-        repo: 'typescript-action-with-graphql-codegen',
-        sha: '0123456789',
-        token: 'GITHUB_TOKEN',
-      }),
-    ).resolves.toBeUndefined()
+    const outputs = await run({
+      organization: 'my-org',
+      usernames: ['octocat'],
+      includes: [],
+      limit: 0,
+      token: 'GITHUB_TOKEN',
+    })
+    expect(outputs).toStrictEqual({
+      teams: ['sre'],
+    })
   })
 })
