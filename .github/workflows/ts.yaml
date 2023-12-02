@@ -33,11 +33,9 @@ jobs:
       - run: yarn build
       - run: yarn package
 
-      - name: e2e-test
-        uses: ./
-        with:
-          organization: int128
-          usernames: ${{ github.actor }}
+      # e2e-test requires an organization
+      # - name: e2e-test
+      #   uses: ./
 
   generate:
     runs-on: ubuntu-latest
