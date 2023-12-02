@@ -1,37 +1,49 @@
 import assert from 'assert'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { getAssociatedPullRequest } from './queries/getAssociatedPullRequest'
+import { listOrganizationTeams } from './queries/listOrganizationTeams'
 
 type Inputs = {
-  owner: string
-  repo: string
-  sha: string
+  organization: string
+  usernames: string[]
+  includes: string[]
+  limit: number
   token: string
 }
 
-export const run = async (inputs: Inputs): Promise<void> => {
+type Outputs = {
+  teams: string[]
+}
+
+export const run = async (inputs: Inputs): Promise<Outputs> => {
   const octokit = github.getOctokit(inputs.token)
 
-  core.info(`Getting the associated pull request for the commit ${inputs.sha}`)
-  const associatedPullRequest = await getAssociatedPullRequest(octokit, {
-    owner: inputs.owner,
-    name: inputs.repo,
-    expression: inputs.sha,
+  const response = await listOrganizationTeams(octokit, {
+    organization: inputs.organization,
+    userLogins: inputs.usernames,
   })
+  assert(response.organization)
+  core.info(`Found ${response.organization.teams.totalCount} teams`)
+  assert(response.organization.teams.nodes)
 
-  assert(associatedPullRequest.repository)
-  assert(associatedPullRequest.repository.object)
-  assert.strictEqual(associatedPullRequest.repository.object.__typename, 'Commit')
-  assert(associatedPullRequest.repository.object.associatedPullRequests)
-  assert(associatedPullRequest.repository.object.associatedPullRequests.nodes != null)
+  const names = new Set(
+    response.organization.teams.nodes.map((team) => {
+      assert(team)
+      return team.name
+    }),
+  )
+  core.info(`Teams: ${[...names].join(', ')}`)
 
-  if (associatedPullRequest.repository.object.associatedPullRequests.nodes.length === 0) {
-    core.info('No associated pull request found')
-    return
+  const includes = new Set(inputs.includes)
+
+  const teams = []
+  for (const name of names) {
+    if (includes.size === 0 || includes.has(name)) {
+      teams.push(name)
+    }
+    if (inputs.limit > 0 && teams.length >= inputs.limit) {
+      break
+    }
   }
-  for (const node of associatedPullRequest.repository.object.associatedPullRequests.nodes) {
-    assert(node != null)
-    core.info(`Found associated pull request #${node.number}`)
-  }
+  return { teams }
 }

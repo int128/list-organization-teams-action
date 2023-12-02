@@ -1,15 +1,28 @@
-name: typescript-action-with-graphql-codegen
-description: Template of TypeScript Action
+name: list-teams-action
+description: Return a list of teams which a user belongs to in the organization.
 
 inputs:
-  sha:
-    description: Target commit SHA
+  organization:
+    description: GitHub organization
     required: true
-    default: ${{ github.sha }}
+  usernames:
+    description: GitHub usernames (multiline)
+    required: true
+  includes:
+    description: If set, filter team names (multiline)
+    required: false
+  limit:
+    description: If set, limit the number of teams returned
+    required: false
+    default: '0'
   token:
     description: GitHub Token
     required: true
     default: ${{ github.token }}
+
+outputs:
+  teams:
+    description: List of teams (multiline)
 
 runs:
   using: 'node20'
