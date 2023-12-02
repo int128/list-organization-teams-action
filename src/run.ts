@@ -2,6 +2,7 @@ import assert from 'assert'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import { listOrganizationTeams } from './queries/listOrganizationTeams'
+import { filter } from './filter'
 
 type Inputs = {
   organization: string
@@ -26,24 +27,14 @@ export const run = async (inputs: Inputs): Promise<Outputs> => {
   core.info(`Found ${response.organization.teams.totalCount} teams`)
   assert(response.organization.teams.nodes)
 
-  const names = new Set(
-    response.organization.teams.nodes.map((team) => {
-      assert(team)
-      return team.name
-    }),
-  )
-  core.info(`Teams: ${[...names].join(', ')}`)
+  const names = response.organization.teams.nodes.map((team) => {
+    assert(team)
+    return team.name
+  })
+  core.info(`Teams: ${names.join(', ')}`)
 
-  const includes = new Set(inputs.includes)
-
-  const teams = []
-  for (const name of names) {
-    if (includes.size === 0 || includes.has(name)) {
-      teams.push(name)
-    }
-    if (inputs.limit > 0 && teams.length >= inputs.limit) {
-      break
-    }
+  const teams = filter(names, inputs)
+  return {
+    teams: [...teams],
   }
-  return { teams }
 }

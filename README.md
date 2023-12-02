@@ -16,10 +16,13 @@ jobs:
       - id: list-teams
         uses: int128/list-teams-action@v1
         with:
+          token: ${{ secrets.YOUR_TOKEN }} # read the organization teams
           organization: my-org
           usernames: ${{ github.actor }}
           includes: |
             sre
+            frontend-devs
+            backend-devs
       - uses: int128/issues-action@v2
         with:
           context: true
@@ -29,13 +32,13 @@ jobs:
 
 ### Inputs
 
-| Name           | Default        | Description                       |
-| -------------- | -------------- | --------------------------------- |
-| `organization` | (required)     | GitHub organization               |
-| `usernames`    | (required)     | GitHub usernames (multiline)      |
-| `includes`     | -              | If set, filter team names         |
-| `limit`        | 0              | Limit of teams (0 means no limit) |
-| `token`        | `github.token` | GitHub token                      |
+| Name           | Default        | Description                                |
+| -------------- | -------------- | ------------------------------------------ |
+| `organization` | (required)     | GitHub organization                        |
+| `usernames`    | (required)     | GitHub usernames (multiline)               |
+| `includes`     | -              | If set, filter team names (multiline)      |
+| `limit`        | `0` (no limit) | If set, limit the number of teams returned |
+| `token`        | `github.token` | GitHub token                               |
 
 ### Outputs
 
