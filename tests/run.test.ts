@@ -19,6 +19,7 @@ describe('run', () => {
       usernames: ['octocat'],
       includes: [],
       limit: 1,
+      addPrefix: '',
       token: 'GITHUB_TOKEN',
     })
     expect(outputs).toStrictEqual({

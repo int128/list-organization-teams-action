@@ -9,6 +9,7 @@ type Inputs = {
   usernames: string[]
   includes: string[]
   limit: number
+  addPrefix: string
   token: string
 }
 
@@ -34,7 +35,5 @@ export const run = async (inputs: Inputs): Promise<Outputs> => {
   core.info(`Teams: ${names.join(', ')}`)
 
   const teams = filter(names, inputs)
-  return {
-    teams: [...teams],
-  }
+  return { teams }
 }

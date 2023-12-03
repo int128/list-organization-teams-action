@@ -1,14 +1,24 @@
 type Options = {
   includes: string[]
   limit: number
+  addPrefix: string
 }
 
 export const filter = (names: string[], options: Options): string[] => {
-  const includes = new Set(options.includes)
-  const filteredByIncludes = includes.size > 0 ? names.filter((name) => includes.has(name)) : names
+  let result = names
+
+  if (options.includes.length > 0) {
+    const includes = new Set(options.includes)
+    result = result.filter((name) => includes.has(name))
+  }
 
   if (options.limit > 0) {
-    return filteredByIncludes.slice(0, options.limit)
+    result = result.slice(0, options.limit)
   }
-  return filteredByIncludes
+
+  if (options.addPrefix) {
+    result = result.map((name) => `${options.addPrefix}${name}`)
+  }
+
+  return result
 }
