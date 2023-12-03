@@ -1,4 +1,4 @@
-name: list-teams-action
+name: list-organization-teams-action
 description: Return a list of teams which a user belongs to in the organization.
 
 inputs:

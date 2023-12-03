@@ -1,4 +1,4 @@
-# list-teams-action [![ts](https://github.com/int128/list-teams-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/list-teams-action/actions/workflows/ts.yaml)
+# list-organization-teams-action [![ts](https://github.com/int128/list-organization-teams-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/list-organization-teams-action/actions/workflows/ts.yaml)
 
 This action returns a list of teams which a user belongs to in the organization.
 
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: list-teams
-        uses: int128/list-teams-action@v1
+        uses: int128/list-organization-teams-action@v1
         with:
           token: # your PAT or GitHub App token to read your organization
           usernames: ${{ github.actor }}
@@ -36,7 +36,7 @@ If a user belongs to a lot of teams, you can filter the teams by `includes` opti
 
 ```yaml
 - id: list-teams
-  uses: int128/list-teams-action@v1
+  uses: int128/list-organization-teams-action@v1
   with:
     token: # your PAT or GitHub App token to read your organization
     usernames: ${{ github.actor }}
@@ -50,7 +50,7 @@ You can also set `limit` option to get the first matched team.
 
 ```yaml
 - id: list-teams
-  uses: int128/list-teams-action@v1
+  uses: int128/list-organization-teams-action@v1
   with:
     token: # your PAT or GitHub App token to read your organization
     usernames: ${{ github.actor }}
@@ -68,7 +68,7 @@ This example checks if the current actor belongs to the specific team.
 ```yaml
 steps:
   - id: list-teams
-    uses: int128/list-teams-action@v1
+    uses: int128/list-organization-teams-action@v1
     with:
       token: # your PAT or GitHub App token to read your organization
       usernames: ${{ github.actor }}
