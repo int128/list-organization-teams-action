@@ -18,6 +18,7 @@ on:
 
 jobs:
   team-labeler:
+    if: github.event.sender.type != 'Bot'
     runs-on: ubuntu-latest
     steps:
       - id: list-teams
