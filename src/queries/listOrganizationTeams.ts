@@ -1,3 +1,4 @@
+import * as core from '@actions/core'
 import { GitHub } from '@actions/github/lib/utils'
 import { ListOrganizationTeamsQuery, ListOrganizationTeamsQueryVariables } from '../generated/graphql'
 
@@ -23,4 +24,9 @@ const query = /* GraphQL */ `
 export const listOrganizationTeams = async (
   octokit: Octokit,
   v: ListOrganizationTeamsQueryVariables,
-): Promise<ListOrganizationTeamsQuery> => await octokit.graphql(query, v)
+): Promise<ListOrganizationTeamsQuery> =>
+  core.group(`listOrganizationTeams(${JSON.stringify(v)})`, async () => {
+    const r = await octokit.graphql<ListOrganizationTeamsQuery>(query, v)
+    core.info(JSON.stringify(r, undefined, 2))
+    return r
+  })
