@@ -5,6 +5,7 @@ inputs:
   organization:
     description: GitHub organization
     required: true
+    default: ${{ github.repository_owner }}
   usernames:
     description: GitHub usernames (multiline)
     required: true

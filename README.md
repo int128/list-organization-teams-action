@@ -24,7 +24,6 @@ jobs:
         uses: int128/list-teams-action@v1
         with:
           token: # your PAT or GitHub App token to read your organization
-          organization: ${{ github.repository_owner }}
           usernames: ${{ github.actor }}
       - uses: int128/issues-action@v2
         with:
@@ -39,6 +38,8 @@ If a user belongs to a lot of teams, you can filter the teams by `includes` opti
 - id: list-teams
   uses: int128/list-teams-action@v1
   with:
+    token: # your PAT or GitHub App token to read your organization
+    usernames: ${{ github.actor }}
     includes: |
       sre
       frontend-devs
@@ -51,6 +52,8 @@ You can also set `limit` option to get the first matched team.
 - id: list-teams
   uses: int128/list-teams-action@v1
   with:
+    token: # your PAT or GitHub App token to read your organization
+    usernames: ${{ github.actor }}
     limit: 1
     includes: |
       sre
@@ -68,7 +71,6 @@ steps:
     uses: int128/list-teams-action@v1
     with:
       token: # your PAT or GitHub App token to read your organization
-      organization: ${{ github.repository_owner }}
       usernames: ${{ github.actor }}
       includes: sre
   - name: Check if the actor belongs to sre team
@@ -80,13 +82,13 @@ steps:
 
 ### Inputs
 
-| Name           | Default        | Description                                |
-| -------------- | -------------- | ------------------------------------------ |
-| `organization` | (required)     | GitHub organization                        |
-| `usernames`    | (required)     | GitHub usernames (multiline)               |
-| `includes`     | -              | If set, filter team names (multiline)      |
-| `limit`        | `0` (no limit) | If set, limit the number of teams returned |
-| `token`        | `github.token` | GitHub token                               |
+| Name           | Default                   | Description                                |
+| -------------- | ------------------------- | ------------------------------------------ |
+| `organization` | `github.repository_owner` | GitHub organization                        |
+| `usernames`    | (required)                | GitHub usernames (multiline)               |
+| `includes`     | -                         | If set, filter team names (multiline)      |
+| `limit`        | `0` (no limit)            | If set, limit the number of teams returned |
+| `token`        | `github.token`            | GitHub token                               |
 
 This action requires a GitHub token with the read permission of your organization.
 
