@@ -25,14 +25,13 @@ export const run = async (inputs: Inputs): Promise<Outputs> => {
     userLogins: inputs.usernames,
   })
   assert(response.organization)
-  core.info(`Found ${response.organization.teams.totalCount} teams`)
   assert(response.organization.teams.nodes)
 
   const names = response.organization.teams.nodes.map((team) => {
     assert(team)
     return team.name
   })
-  core.info(`Teams: ${names.join(', ')}`)
+  core.info(`Found ${names.length} team(s):\n${names.join('\n')}`)
 
   const teams = filter(names, inputs)
   return { teams }
