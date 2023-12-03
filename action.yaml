@@ -16,6 +16,9 @@ inputs:
     description: If set, limit the number of teams returned
     required: false
     default: '0'
+  add-prefix:
+    description: If set, add a prefix to a team name
+    required: false
   token:
     description: GitHub Token
     required: true

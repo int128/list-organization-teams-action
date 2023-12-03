@@ -7,6 +7,7 @@ const main = async (): Promise<void> => {
     usernames: core.getMultilineInput('usernames', { required: true }),
     includes: core.getMultilineInput('includes'),
     limit: Number(core.getInput('limit', { required: true })),
+    addPrefix: core.getInput('add-prefix'),
     token: core.getInput('token', { required: true }),
   })
   core.info(`Outputs = ${JSON.stringify(outputs, undefined, 2)}`)

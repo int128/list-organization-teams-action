@@ -62,6 +62,17 @@ You can also set `limit` option to get the first matched team.
       backend-devs
 ```
 
+You can add a prefix to a team name of the result.
+
+```yaml
+- id: list-teams
+  uses: int128/list-organization-teams-action@v1
+  with:
+    token: # your PAT or GitHub App token to read your organization
+    usernames: ${{ github.actor }}
+    add-prefix: 'team:'
+```
+
 ### Check if a user belongs to a team
 
 This example checks if the current actor belongs to the specific team.
@@ -89,6 +100,7 @@ steps:
 | `usernames`    | (required)                | GitHub usernames (multiline)               |
 | `includes`     | -                         | If set, filter team names (multiline)      |
 | `limit`        | `0` (no limit)            | If set, limit the number of teams returned |
+| `add-prefix`   | -                         | If set, add a prefix to a team name        |
 | `token`        | `github.token`            | GitHub token                               |
 
 This action requires a GitHub token with the read permission of your organization.
