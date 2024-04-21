@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
-import { GitHub } from '@actions/github/lib/utils'
-import { ListOrganizationTeamsQuery, ListOrganizationTeamsQueryVariables } from '../generated/graphql'
+import * as github from '@actions/github'
+import { ListOrganizationTeamsQuery, ListOrganizationTeamsQueryVariables } from '../generated/graphql.js'
 
-type Octokit = InstanceType<typeof GitHub>
+type Octokit = ReturnType<typeof github.getOctokit>
 
 const query = /* GraphQL */ `
   query listOrganizationTeams($organization: String!, $userLogins: [String!]!) {

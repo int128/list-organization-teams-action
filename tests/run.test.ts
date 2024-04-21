@@ -1,5 +1,5 @@
-import { listOrganizationTeams } from '../src/queries/listOrganizationTeams'
-import { run } from '../src/run'
+import { listOrganizationTeams } from '../src/queries/listOrganizationTeams.js'
+import { run } from '../src/run.js'
 
 jest.mock('../src/queries/listOrganizationTeams')
 
