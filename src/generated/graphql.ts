@@ -1,4 +1,4 @@
-import * as Types from './graphql-types';
+import * as Types from './graphql-types.js';
 
 export type ListOrganizationTeamsQueryVariables = Types.Exact<{
   organization: Types.Scalars['String']['input'];

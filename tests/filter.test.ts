@@ -1,4 +1,4 @@
-import { filter } from '../src/filter'
+import { filter } from '../src/filter.js'
 
 describe('filter', () => {
   it.each([{ names: [] }, { names: ['foo'] }, { names: ['foo', 'bar'] }])(
