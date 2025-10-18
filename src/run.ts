@@ -1,8 +1,8 @@
-import assert from 'assert'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { listOrganizationTeams } from './queries/listOrganizationTeams.js'
+import assert from 'assert'
 import { filter } from './filter.js'
+import { listOrganizationTeams } from './queries/listOrganizationTeams.js'
 
 type Inputs = {
   organization: string

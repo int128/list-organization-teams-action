@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import * as github from '@actions/github'
-import { ListOrganizationTeamsQuery, ListOrganizationTeamsQueryVariables } from '../generated/graphql.js'
+import type * as github from '@actions/github'
+import type { ListOrganizationTeamsQuery, ListOrganizationTeamsQueryVariables } from '../generated/graphql.js'
 
 type Octokit = ReturnType<typeof github.getOctokit>
 
