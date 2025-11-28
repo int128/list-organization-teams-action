@@ -2,12 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { filter } from '../src/filter.js'
 
 describe('filter', () => {
-  it.each([{ names: [] }, { names: ['foo'] }, { names: ['foo', 'bar'] }])(
-    'should return $names as-is if options is not set',
-    ({ names }) => {
-      expect(filter(names, { includes: [], limit: 0, addPrefix: '' })).toStrictEqual(names)
-    },
-  )
+  it.each([
+    { names: [] },
+    { names: ['foo'] },
+    { names: ['foo', 'bar'] },
+  ])('should return $names as-is if options is not set', ({ names }) => {
+    expect(filter(names, { includes: [], limit: 0, addPrefix: '' })).toStrictEqual(names)
+  })
 
   it.each([
     { names: [], includes: ['foo'], expected: [] },
