@@ -1,6 +1,6 @@
 import assert from 'node:assert'
 import * as core from '@actions/core'
-import * as github from '@actions/github'
+import type { Octokit } from '@octokit/action'
 import { filter } from './filter.js'
 import { listOrganizationTeams } from './queries/listOrganizationTeams.js'
 
@@ -10,16 +10,13 @@ type Inputs = {
   includes: string[]
   limit: number
   addPrefix: string
-  token: string
 }
 
 type Outputs = {
   teams: string[]
 }
 
-export const run = async (inputs: Inputs): Promise<Outputs> => {
-  const octokit = github.getOctokit(inputs.token)
-
+export const run = async (inputs: Inputs, octokit: Octokit): Promise<Outputs> => {
   const response = await listOrganizationTeams(octokit, {
     organization: inputs.organization,
     userLogins: inputs.usernames,
