@@ -70,7 +70,7 @@ You can add a prefix to a team name of the result.
   with:
     token: # your PAT or GitHub App token to read your organization
     usernames: ${{ github.actor }}
-    add-prefix: 'team:'
+    add-prefix: "team:"
 ```
 
 ### Check if a user belongs to a team

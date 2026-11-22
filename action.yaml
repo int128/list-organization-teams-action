@@ -15,7 +15,7 @@ inputs:
   limit:
     description: If set, limit the number of teams returned
     required: false
-    default: '0'
+    default: "0"
   add-prefix:
     description: If set, add a prefix to a team name
     required: false
@@ -29,5 +29,5 @@ outputs:
     description: List of teams (multiline)
 
 runs:
-  using: 'node24'
-  main: 'dist/index.js'
+  using: "node24"
+  main: "dist/index.js"
